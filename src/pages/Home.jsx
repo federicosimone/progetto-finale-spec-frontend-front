@@ -42,8 +42,8 @@ function Home() {
 
 
 
-    const sorteredSmartphones = useMemo(() => {          //uso usememo per memorizzare il risultato dell'ordinamento e ricalcolarlo solo quando cambiano le dipendenze
-
+    const sortedSmartphones = useMemo(() => {          //uso usememo per memorizzare il risultato dell'ordinamento e ricalcolarlo solo quando cambiano le dipendenze
+        //Non mi serve filtrare perchè l'array smartphones mi arriva già filtrato dal backend a causa dello useEffect precendente 
         const copiaSmartphones = [...smartphones]
 
         if (sortBy === "title-asc") { // se il criterio corrisponde a "title-asc" allora tramite il metodo del localeCompare ordino alfabeticamente A-Z
@@ -76,12 +76,16 @@ function Home() {
                 onChange={e => setSearch(e.target.value)
                 } />
 
+            {/*Creo la select per filtrare in base alla categoria*/}
+
             <select className="form-select mb-3" aria-label="Select category" value={category} onChange={e => setCategory(e.target.value)}>
-                <option selected>Scegli una categoria</option>
+                <option value="">Scegli una categoria</option>
                 <option value="Entry-level">Entry-level</option>
                 <option value="Gaming">Gaming</option>
                 <option value="Premium">Premium</option>
             </select>
+
+            {/*Creo la select per ordinare in base a titolo o categoria*/}
             <select className="form-select" aria-label="Select order" value={sortBy} onChange={e => setSortBy(e.target.value)}> {/*qui seleziono il criterio secondo il quale ordinare*/}
                 <option value="">Ordina</option>
                 <option value="title-asc">A-Z Titolo</option>
@@ -92,7 +96,7 @@ function Home() {
 
             <p className="mt-3">{search ? `Stai cercando: ${search}` : ""}</p>
             <div className="d-flex flex-wrap gap-4">
-                {sorteredSmartphones.map((smartphone) => {
+                {sortedSmartphones.map((smartphone) => {   //ho sostituito l'array originale con la copia creata per l'ordinamento. 
                     return <SmartphoneCard
                         key={smartphone.id}
                         title={smartphone.title}
