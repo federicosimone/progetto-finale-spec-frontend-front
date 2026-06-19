@@ -14,7 +14,7 @@ function Home() {
     const [category, setCategory] = useState("");
     const [sortBy, setSortBy] = useState("")
 
-
+    console.log(smartphones)
     console.log(search)
     console.log(category)
 
@@ -98,7 +98,7 @@ function Home() {
             <div className="d-flex flex-wrap gap-4">
                 {sortedSmartphones.map((smartphone) => {   //ho sostituito l'array originale con la copia creata per l'ordinamento. 
                     return <SmartphoneCard
-                        key={smartphone.id}
+                        id={smartphone.id}
                         title={smartphone.title}
                         category={smartphone.category}
                     />

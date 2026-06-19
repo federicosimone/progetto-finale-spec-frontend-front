@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function SmartphoneCard(props) {
     return (
         <>
@@ -6,7 +8,7 @@ function SmartphoneCard(props) {
                 <div className="card-body">
                     <h5 className="card-title">{props.title}</h5>
                     <p className="card-text">Categoria: {props.category}</p>
-                    <a href="#" className="btn btn-primary me-3">Mostra dettagli</a>
+                    <Link className="btn btn-primary me-3" to={`/smartphones/${props.id}`}><span className="fw-semibold">Dettagli</span></Link>
                     <a href="#" className="btn btn-success">Preferiti</a>
                 </div>
             </div>
