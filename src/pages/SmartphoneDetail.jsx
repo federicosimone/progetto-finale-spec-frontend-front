@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 const { VITE_APP_API_URL } = import.meta.env
 //import SmartphoneCardDetails from "../components/SmartphoneCardDetails"
 import { Link } from "react-router-dom"
+import style from "../components/SmartphoneDetail.module.css"
 
 function SmartphoneDetail() {
 
@@ -36,8 +37,11 @@ function SmartphoneDetail() {
                     <p className="card-text">Categoria: {details.category}</p>
                     <p className="card-text">{details.description}</p>
                     <p className="card-text fw-bold text-success ">€ {details.price}</p>
-                    <Link className="btn btn-primary me-3" to={`/`}><span className="fw-semibold">Torna alla lista</span></Link>
-                    <a href="#" className="btn btn-success">Preferiti</a>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <Link className="btn btn-primary me-3" to={`/`}><span className="fw-semibold">Torna alla lista</span></Link>
+                        <a href="#"><i className={`${style.heart} fa-solid fa-heart`}></i></a>
+                    </div>
+
                 </div>
             </div>
         </>

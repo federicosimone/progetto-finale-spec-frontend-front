@@ -66,36 +66,46 @@ function Home() {
 
     return (
         <>
-            <h1>Questa è la homepage</h1>
+            <h1 className="fw-bold">Cerca il tuo prossimo smartphone!</h1>
+            <div className="row mt-3">
+                {/*creo l'input per il filtro*/}
+                <div className="col-4">
+                    <input
+                        className="form-control mb-3 col-4"
+                        type="text" placeholder="Cerca..."
+                        value={search}
+                        onChange={e => setSearch(e.target.value)
+                        } />
+                </div>
 
-            {/*creo l'input per il filtro*/}
-            <input
-                className="form-control mt-3 mb-3"
-                type="text" placeholder="Cerca smartphones..."
-                value={search}
-                onChange={e => setSearch(e.target.value)
-                } />
 
-            {/*Creo la select per filtrare in base alla categoria*/}
+                {/*Creo la select per filtrare in base alla categoria*/}
+                <div className="col-4">
+                    <select className="form-select mb-3 col-4" aria-label="Select category" value={category} onChange={e => setCategory(e.target.value)}>
+                        <option value="">Scegli una categoria</option>
+                        <option value="Entry-level">Entry-level</option>
+                        <option value="Gaming">Gaming</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
 
-            <select className="form-select mb-3" aria-label="Select category" value={category} onChange={e => setCategory(e.target.value)}>
-                <option value="">Scegli una categoria</option>
-                <option value="Entry-level">Entry-level</option>
-                <option value="Gaming">Gaming</option>
-                <option value="Premium">Premium</option>
-            </select>
+                {/*Creo la select per ordinare in base a titolo o categoria*/}
+                <div className="col-4">
+                    <select className="form-select col-4" aria-label="Select order" value={sortBy} onChange={e => setSortBy(e.target.value)}> {/*qui seleziono il criterio secondo il quale ordinare*/}
+                        <option value="">Ordina</option>
+                        <option value="title-asc">A-Z Titolo</option>
+                        <option value="title-desc">Z-A Titolo</option>
+                        <option value="category-asc">A-Z Categoria</option>
+                        <option value="category-desc">Z-A Categoria</option>
+                    </select>
+                </div>
 
-            {/*Creo la select per ordinare in base a titolo o categoria*/}
-            <select className="form-select" aria-label="Select order" value={sortBy} onChange={e => setSortBy(e.target.value)}> {/*qui seleziono il criterio secondo il quale ordinare*/}
-                <option value="">Ordina</option>
-                <option value="title-asc">A-Z Titolo</option>
-                <option value="title-desc">Z-A Titolo</option>
-                <option value="category-asc">A-Z Categoria</option>
-                <option value="category-desc">Z-A Categoria</option>
-            </select>
 
-            <p className="mt-3">{search ? `Stai cercando: ${search}` : ""}</p>
-            <div className="d-flex flex-wrap gap-4">
+
+                <p className="mt-3">{search ? `Stai cercando: ${search}` : ""}</p>
+            </div>
+
+            <div className="d-flex flex-wrap justify-content-center  gap-4">
                 {sortedSmartphones.map((smartphone) => {   //ho sostituito l'array originale con la copia creata per l'ordinamento. 
                     return <SmartphoneCard
                         id={smartphone.id}
