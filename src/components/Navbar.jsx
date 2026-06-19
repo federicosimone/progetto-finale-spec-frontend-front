@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom"
+import logo from "../assets/logo1.png"
 
 function Navbar() {
     return (
         <>
-            <nav className="navbar fixed-top">
+            <nav className="navbar">
                 <div className="container">
                     <div>
                         <a className="navbar-brand" href={"/"}>
@@ -13,8 +14,8 @@ function Navbar() {
                     <div className="d-flex gap-3">
 
                         <NavLink className="btn btn-secondary" to="/">Home</NavLink>
-                        <NavLink className="btn btn-secondary" to="/tasklist">Lista</NavLink>
-                        <NavLink className="btn btn-secondary" to="/addtask">Aggiungi</NavLink>
+                        <NavLink className="btn btn-secondary" to="/favorites">Preferiti</NavLink>
+                        <NavLink className="btn btn-secondary" to="/compare">Confronta</NavLink>
 
                     </div>
                 </div>
