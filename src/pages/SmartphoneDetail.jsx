@@ -18,7 +18,7 @@ function SmartphoneDetail() {
 
         fetch(url)
             .then(res => res.json())
-            .then(data => setDetails(data.smartphone))
+            .then(data => setDetails(data.smartphone))  //la struttura dell'oggetto non è direttamente smartphone, ma smartphone è una proprietà dei data della fetch.
             .catch(err => console.error(err))
 
     }
@@ -31,6 +31,7 @@ function SmartphoneDetail() {
             <div className="card mb-2" style={{ width: '18rem' }}>
                 <img src={details.image} alt="" />
                 <div className="card-body">
+                    <h3>{details.brand}</h3>
                     <h5 className="card-title">{details.title}</h5>
                     <p className="card-text">Categoria: {details.category}</p>
                     <p className="card-text">{details.description}</p>
