@@ -1,3 +1,8 @@
-nav {
-    background-color: rgba(53, 53, 61, 0.85)
+.icons {
+    color: #ffffff !important;
+    transition: color 0.3s ease
+}
+
+.icons:hover {
+    color: #ffa600 !important;
 }

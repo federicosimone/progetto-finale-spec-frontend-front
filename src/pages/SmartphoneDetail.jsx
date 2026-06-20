@@ -29,21 +29,32 @@ function SmartphoneDetail() {
     }, [id])  //con useEffect voglio che la funzione getData (ovvero quella che prende i dati dal fetch), venga svolta alla creazione del componente. 
     return (
         <>
-            <div className="card mb-2" style={{ width: '18rem' }}>
-                <img src={details.image} alt="" />
-                <div className="card-body">
-                    <h3>{details.brand}</h3>
-                    <h5 className="card-title">{details.title}</h5>
-                    <p className="card-text">Categoria: {details.category}</p>
-                    <p className="card-text">{details.description}</p>
-                    <p className="card-text fw-bold text-success ">€ {details.price}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                        <Link className="btn btn-primary me-3" to={`/`}><span className="fw-semibold">Torna alla lista</span></Link>
-                        <a href="#"><i className={`${style.heart} fa-solid fa-heart`}></i></a>
-                    </div>
+            <div className="container mt-5 mb-5">
+                <div className="row bg-white text-dark p-4 rounded-3 shadow">
+                    <div className="col col-12 col-md-6">
 
+                        <img src={details.image} alt="" className="img-fluid rounded" />
+                    </div>
+                    <div className="col col-6">
+                        <div>
+                            <Link to={`/`} className="btn btn-primary mt-2 mb-2">Torna alla lista prodotti</Link>
+                        </div>
+                        <h2 className="fw-bold">{details.title} </h2>
+                        <p className="badge bg-secondary">{details.category}</p>
+
+                        <p>{details.description}</p>
+                        <p className="fw-bold fs-2">€ {details.price}</p>
+                        <button className="btn btn-success">Aggiungi i preferiti</button>
+                        <div>
+                            {/*<Link to={`/products/${parseInt(id) + 1}`} className="btn btn-primary mt-2 mb-2">Prossimo </Link>*/}
+                        </div>
+
+
+
+                    </div>
                 </div>
-            </div>
+
+            </div >
         </>
     )
 }
