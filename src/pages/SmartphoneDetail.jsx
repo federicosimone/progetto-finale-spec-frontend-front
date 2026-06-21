@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 const { VITE_APP_API_URL } = import.meta.env
 //import SmartphoneCardDetails from "../components/SmartphoneCardDetails"
 import { Link } from "react-router-dom"
 import style from "../components/SmartphoneDetail.module.css"
+import { CompareContext } from "../context/CompareContext"
+
+
 
 function SmartphoneDetail() {
 
     const { id } = useParams()
+    const { compareSmartphone, setCompareSmartphone } = useContext(CompareContext)
 
 
     const [details, setDetails] = useState({})
 
-    console.log(details)
+    console.log(compareSmartphone)
 
     function getData() {
         let url = `${VITE_APP_API_URL}/smartphones/${id}`
@@ -24,19 +28,32 @@ function SmartphoneDetail() {
 
     }
 
-    useEffect(() => {
+    useEffect(() => {   //con useEffect voglio che la funzione getData (ovvero quella che prende i dati dal fetch), venga svolta alla creazione del componente. 
         getData()
-    }, [id])  //con useEffect voglio che la funzione getData (ovvero quella che prende i dati dal fetch), venga svolta alla creazione del componente. 
+    }, [id])
+
+
+
     return (
         <>
             <div className="container mt-5 mb-5">
                 <div className="row bg-white text-dark p-4 rounded-3 shadow">
                     <div className="col col-12 col-md-6">
+                        <div className="d-flex justify-content-center align-items-center" style={{ height: "400px" }}>
+                            <img
+                                src={details.image}
+                                alt={details.title}
+                                style={{
+                                    maxWidth: "100%",
+                                    maxHeight: "100%",
+                                    objectFit: "contain"
+                                }}
+                            />
+                        </div>
 
-                        <img src={details.image} alt="" className="img-fluid rounded" />
                     </div>
-                    <div className="col col-6">
-                        <div>
+                    <div className="col col-12 col-md-6">
+                        <div className="text-end">
                             <Link to={`/`} className="btn btn-primary mt-2 mb-2">Torna alla lista prodotti</Link>
                         </div>
                         <h2 className="fw-bold">{details.title} </h2>
@@ -44,9 +61,11 @@ function SmartphoneDetail() {
 
                         <p>{details.description}</p>
                         <p className="fw-bold fs-2">€ {details.price}</p>
-                        <button className="btn btn-success">Aggiungi i preferiti</button>
-                        <div>
-                            {/*<Link to={`/products/${parseInt(id) + 1}`} className="btn btn-primary mt-2 mb-2">Prossimo </Link>*/}
+                        <button className="btn btn-success" onClick={() => setCompareSmartphone([...compareSmartphone, details])}>Confronta</button>
+                        <div className="mt-3">
+                            {<Link to={`/smartphones/${parseInt(id) - 1}`} ><i className="fs-3 fa-solid fa-circle-arrow-left"></i> </Link>}
+                            <span> </span>
+                            {<Link to={`/smartphones/${parseInt(id) + 1}`} ><i className="fs-3 fa-solid fa-circle-arrow-right"></i> </Link>}
                         </div>
 
 

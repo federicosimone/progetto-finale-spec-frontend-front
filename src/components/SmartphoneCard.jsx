@@ -1,20 +1,39 @@
 import { Link } from "react-router-dom"
 import style from "../components/SmartphoneCard.module.css"
+import { useContext, useState } from "react"
+import { CompareContext } from "../context/CompareContext"
+const { VITE_APP_API_URL } = import.meta.env
 
 function SmartphoneCard(props) {
+
+    const { compareSmartphone, setCompareSmartphone } = useContext(CompareContext)
+
+    function handleCompare() {
+        fetch(`${VITE_APP_API_URL}/smartphones/${props.id}`)
+            .then(res => res.json())
+            .then(data => {
+                setCompareSmartphone([...compareSmartphone, data.smartphone]);
+            })
+            .catch(err => console.error(err));
+    }
     return (
         <>
             <div className="card mb-2" style={{ width: '18rem' }}>
 
                 <div className="card-body">
 
-                    <h5 className="card-title">{props.title}</h5>
-                    <p className="card-text">Categoria: {props.category}</p>
-                    <div className="container ">
+                    <Link className="card-title text-decoration-none" to={`/smartphones/${props.id}`}><h5> {props.title}</h5></Link>
+                    <p className="badge bg-secondary">{props.category}</p>
+                    <div className="">
                         <div className="d-flex justify-content-between align-items-center">
                             <Link className={`${style.btnColor} btn btn-primary me-3`} to={`/smartphones/${props.id}`}><span className="fw-semibold">Dettagli</span></Link>
                             <a href="#"><i className={`${style.heart} fa-solid fa-heart`}></i></a>
                         </div>
+                        <div>
+                            <input className="form-check-input" type="checkbox" value="" onChange={handleCompare} id="checkDefault" />
+                            <label className="form-check-label" for="checkDefault">Confronta</label>
+                        </div>
+
 
                     </div>
 
