@@ -1,8 +1,10 @@
-
+import { useContext } from "react"
+import { CompareContext } from "../context/CompareContext"
 
 
 function CompareCard(props) {
 
+    const { removeFromCompare } = useContext(CompareContext)
 
     return (
         <>
@@ -24,6 +26,7 @@ function CompareCard(props) {
                     <h5> {props.title}</h5>
                     <p className="card-text">Categoria: {props.category}</p>
                     <p className="card-text fw-bold text-success ">€ {props.price}</p>
+                    <button className="btn btn-danger" onClick={() => removeFromCompare(props.id)}>Rimuovi</button>
 
 
                 </div>

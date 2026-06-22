@@ -11,7 +11,7 @@ import { CompareContext } from "../context/CompareContext"
 function SmartphoneDetail() {
 
     const { id } = useParams()
-    const { compareSmartphone, setCompareSmartphone } = useContext(CompareContext)
+    const { compareSmartphone, setCompareSmartphone, addToCompare } = useContext(CompareContext)
 
 
     const [details, setDetails] = useState({})
@@ -61,7 +61,8 @@ function SmartphoneDetail() {
 
                         <p>{details.description}</p>
                         <p className="fw-bold fs-2">€ {details.price}</p>
-                        <button className="btn btn-success" onClick={() => setCompareSmartphone([...compareSmartphone, details])}>Confronta</button>
+
+                        <button className="btn btn-success" onClick={() => addToCompare(details)}>Confronta</button>
                         <div className="mt-3">
                             {<Link to={`/smartphones/${parseInt(id) - 1}`} ><i className="fs-3 fa-solid fa-circle-arrow-left"></i> </Link>}
                             <span> </span>

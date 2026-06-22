@@ -18,6 +18,7 @@ function Compare() {
                                 category={smartphone.category}
                                 price={smartphone.price}
                                 image={smartphone.image}
+                                id={smartphone.id}
                             />
                         )
                     })}

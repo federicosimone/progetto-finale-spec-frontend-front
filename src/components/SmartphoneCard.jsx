@@ -6,13 +6,13 @@ const { VITE_APP_API_URL } = import.meta.env
 
 function SmartphoneCard(props) {
 
-    const { compareSmartphone, setCompareSmartphone } = useContext(CompareContext)
+    const { compareSmartphone, setCompareSmartphone, addToCompare } = useContext(CompareContext)
 
     function handleCompare() {
         fetch(`${VITE_APP_API_URL}/smartphones/${props.id}`)
             .then(res => res.json())
             .then(data => {
-                setCompareSmartphone([...compareSmartphone, data.smartphone]);
+                addToCompare(data.smartphone)
             })
             .catch(err => console.error(err));
     }
@@ -29,9 +29,17 @@ function SmartphoneCard(props) {
                             <Link className={`${style.btnColor} btn btn-primary me-3`} to={`/smartphones/${props.id}`}><span className="fw-semibold">Dettagli</span></Link>
                             <a href="#"><i className={`${style.heart} fa-solid fa-heart`}></i></a>
                         </div>
-                        <div>
-                            <input className="form-check-input" type="checkbox" value="" onChange={handleCompare} id="checkDefault" />
-                            <label className="form-check-label" for="checkDefault">Confronta</label>
+                        <div className="mt-2">
+                            <input
+                                className="form-check-input me-2"
+                                type="checkbox"
+                                onChange={handleCompare}
+                                id={`compare-${props.id}`}
+                            />
+
+                            <label className="form-check-label" htmlFor={`compare-${props.id}`}>
+                                Confronta
+                            </label>
                         </div>
 
 
