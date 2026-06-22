@@ -57,10 +57,23 @@ Ricerca per titolo tramite query string:
 
 ```txt
 /smartphones?search=...
-
 ## Scelte progettuali
 
-- si è deciso di salvare la url di base in un file .env per ridurre al minimo le possibilità di errore
-- per l'ordinamento si è deciso di utilizzare useMemo, per memorizzare il risultato dell'ordinamento e ricalcolarlo solo quando cambiano le dipendenze
-- Si è utilizzato un DefaultLayout. Questa scelta permette di mantenere elementi comuni dell'interfaccia, come la Navbar e il Footer, sempre presenti durante la navigazione tra le diverse pagine dell'applicazione ed evitare il loro inutile re-render 
+- È stata utilizzata una variabile d'ambiente (.env) per centralizzare l'URL base delle API ed evitare duplicazioni nel codice.
 
+- Ricerca e filtro vengono eseguiti tramite query string sugli endpoint del backend, riducendo il numero di dati elaborati lato client.
+
+- L'ordinamento viene gestito lato frontend tramite useMemo, evitando ricalcoli inutili ad ogni render.
+
+- Navbar e Footer sono stati inseriti in un DefaultLayout con Outlet per mantenerli persistenti durante la navigazione.
+
+- Per il comparatore è stato utilizzato un Context dedicato, evitando prop drilling e permettendo la condivisione dello stato tra pagine differenti.
+
+
+Il Context consente di:
+
+- mantenere gli smartphone selezionati durante la navigazione
+- aggiungere smartphone al confronto
+- rimuovere smartphone dal confronto
+- impedire l'inserimento di duplicati
+- limitare il confronto a un massimo di due smartphone
