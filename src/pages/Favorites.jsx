@@ -11,6 +11,11 @@ function Favorites() {
             <h1>Ciao</h1>
             <div className="container">
                 <div className="d-flex flex-wrap justify-content-center gap-4">
+                    {favoritesSmartphone.length === 0 && (
+                        <p className="alert alert-info fs-2">
+                            Nessun preferito salvato
+                        </p>
+                    )}
                     {favoritesSmartphone.map((smartphone) => {
                         return (
                             < FavoritesCard

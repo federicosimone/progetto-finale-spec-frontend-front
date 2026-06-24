@@ -7,7 +7,7 @@ const { VITE_APP_API_URL } = import.meta.env
 
 function SmartphoneCard(props) {
 
-    const { compareSmartphone, setCompareSmartphone, addToCompare } = useContext(CompareContext)
+    const { addToCompare } = useContext(CompareContext)
     const { addToFavorites } = useContext(FavoritesContext)
 
     function handleCompare() {

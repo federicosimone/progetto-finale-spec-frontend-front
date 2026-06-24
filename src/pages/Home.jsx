@@ -13,6 +13,7 @@ function Home() {
     const [search, setSearch] = useState("") //imposto lo stato di search
     const [category, setCategory] = useState("");
     const [sortBy, setSortBy] = useState("")
+    const [error, setError] = useState(""); //stato dell'errore che di default è vuoto 
 
     console.log(smartphones)
     console.log(search)
@@ -22,23 +23,40 @@ function Home() {
 
 
     useEffect(() => {
-        let url = `${VITE_APP_API_URL}/smartphones`  //imposto variabile con url dove fare la chiamata api e recuperare TUTTI GLI SMARPHONE
 
-        if (search && !category) {
-            url += `?search=${search}`
-        } else if (!search && category) {
-            url += `?category=${category}`
-        } else if
-            (search && category) {
-            url += `?search=${search}&category=${category}`
+        async function getSmartphones() {
+
+            let url = `${VITE_APP_API_URL}/smartphones`;
+
+            if (search && !category) {
+                url += `?search=${search}`;
+            } else if (!search && category) {
+                url += `?category=${category}`;
+            } else if (search && category) {
+                url += `?search=${search}&category=${category}`;
+            }
+
+            try {
+
+                const res = await fetch(url);
+
+                if (!res.ok) {
+                    throw new Error(`Errore ${res.status}`);
+                }
+
+                const data = await res.json();
+
+                setSmartphones(data);
+
+            } catch (err) {
+                console.error(err);
+                setError("Errore nel caricamento dei dati")
+            }
         }
-        //che rispondono alle condizioni, ovvero che includono nel title la "search"
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setSmartphones(data))  //la chiamata API viene già fatta GIUSTA in base al filtraggio e quindi l'array smartphones verrà
-            .catch(err => console.error(err))    //popolato correttamente 
-    }, [search, category])
+        getSmartphones();
+
+    }, [search, category]);
 
 
 
@@ -62,10 +80,11 @@ function Home() {
 
         return copiaSmartphones
 
-    }, [smartphones, sortBy]);
-
+    }, [smartphones, sortBy]); //sortBy è lo stato che cambia in base alla value del select, quindi SOLO quando cambia, vado a ricalcolare al funzione
+    //oppure, quando cambia "smartphones", ovvero l'array originale perchè magari viene già filtrato. 
     return (
         <>
+
             <h1 className="fw-bold">Cerca il tuo prossimo smartphone!</h1>
             <div className="row mt-3">
                 {/*creo l'input per il filtro*/}
@@ -106,6 +125,12 @@ function Home() {
             </div>
 
             <div className="d-flex flex-wrap justify-content-center  gap-4">
+                {error && <p className="alert alert-danger">{error}</p>}
+                {sortedSmartphones.length === 0 && (
+                    <p className="alert alert-warning mt-3">
+                        Nessuno smartphone trovato
+                    </p>
+                )}
                 {sortedSmartphones.map((smartphone) => {   //ho sostituito l'array originale con la copia creata per l'ordinamento. 
                     return <SmartphoneCard
                         id={smartphone.id}

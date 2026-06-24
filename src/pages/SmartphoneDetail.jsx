@@ -11,22 +11,33 @@ import { CompareContext } from "../context/CompareContext"
 function SmartphoneDetail() {
 
     const { id } = useParams()
-    const { compareSmartphone, setCompareSmartphone, addToCompare } = useContext(CompareContext)
+    const { compareSmartphone, addToCompare } = useContext(CompareContext)
 
 
     const [details, setDetails] = useState({})
 
     console.log(compareSmartphone)
 
-    function getData() {
-        let url = `${VITE_APP_API_URL}/smartphones/${id}`
+    async function getData() {
+        let url = `${VITE_APP_API_URL}/smartphones/${id}`;
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setDetails(data.smartphone))  //la struttura dell'oggetto non è direttamente smartphone, ma smartphone è una proprietà dei data della fetch.
-            .catch(err => console.error(err))
+        try {
+            const res = await fetch(url);
 
+            //Controlla se l'ID esiste sul server
+            if (!res.ok) {
+                throw new Error(`Smartphone non trovato (Status ${res.status})`);
+            }
+
+            const data = await res.json();
+            setDetails(data.smartphone);
+
+        } catch (err) {
+            //Catturo QUALSIASI errore del processo della chiamata
+            console.error("Errore nel recupero dei dati:", err);
+        }
     }
+
 
     useEffect(() => {   //con useEffect voglio che la funzione getData (ovvero quella che prende i dati dal fetch), venga svolta alla creazione del componente. 
         getData()

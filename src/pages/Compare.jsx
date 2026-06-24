@@ -11,6 +11,11 @@ function Compare() {
             <h1 className="text-center mb-5">Confronto </h1>
             <div className="container">
                 <div className="d-flex flex-wrap justify-content-center gap-4">
+                    {compareSmartphone.length < 2 && (
+                        <p className="alert alert-info fs-3">
+                            Seleziona 2 smartphone da confrontare
+                        </p>
+                    )}
                     {compareSmartphone.map((smartphone) => {
                         return (
                             < CompareCard
@@ -25,39 +30,41 @@ function Compare() {
                 </div >
                 <div className="container">
                     <div className="row">
-                        <h3 className="text-white text-center">Caratteristiche principali:</h3>
+
+
                         {compareSmartphone.map((smartphone) => {
                             return (
-
-                                <div className="col col-6 ">
-                                    <table class="table table-striped rounded">
-                                        <thead>
-                                            <tr>
-                                                <th scope="row">Marca</th>
-                                                <td scope="col">{smartphone.brand}</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">OS</th>
-                                                <td>{smartphone.operatingSystem}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Storage</th>
-                                                <td>{smartphone.storage} GB</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">RAM</th>
-                                                <td>{smartphone.ram} GB</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Schermo</th>
-                                                <td>{smartphone.displaySize} pollici</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div>
+                                    <h3 className="text-white text-center">Caratteristiche principali:</h3>
+                                    <div className="col col-6 gap-4 ">
+                                        <table class="table table-striped rounded">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="row">Marca</th>
+                                                    <td scope="col">{smartphone.brand}</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">OS</th>
+                                                    <td>{smartphone.operatingSystem}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Storage</th>
+                                                    <td>{smartphone.storage} GB</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">RAM</th>
+                                                    <td>{smartphone.ram} GB</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Schermo</th>
+                                                    <td>{smartphone.displaySize} pollici</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-
 
                             )
                         })}
