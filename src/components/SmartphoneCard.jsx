@@ -34,9 +34,26 @@ function SmartphoneCard(props) {
             <div className="card mb-2" style={{ width: '18rem' }}>
 
                 <div className="card-body">
+                    <div className="mb-3">
+                        <input
+                            className="form-check-input me-2"
+                            type="checkbox"
+                            onChange={handleCompare}
+                            id={`compare-${props.id}`}
+                        />
 
-                    <Link className="card-title text-decoration-none" to={`/smartphones/${props.id}`}><h5> {props.title}</h5></Link>
-                    <p className="badge bg-secondary">{props.category}</p>
+                        <label className="form-check-label" htmlFor={`compare-${props.id}`}>
+                            <span className={`${style.compare}`}>Confronta</span>
+                        </label>
+                    </div>
+
+                    <Link className="card-title text-decoration-none" to={`/smartphones/${props.id}`}><h4> {props.title}</h4></Link>
+                    <p className={`badge ${props.category === "Premium"
+                        ? "bg-warning"
+                        : props.category === "Gaming"
+                            ? "bg-info"
+                            : "bg-success"
+                        }`}>{props.category}</p>
                     <div className="">
                         <div className="d-flex justify-content-between align-items-center">
                             <Link className={`${style.btnColor} btn btn-primary me-3`} to={`/smartphones/${props.id}`}><span className="fw-semibold">Dettagli</span></Link>
@@ -44,18 +61,7 @@ function SmartphoneCard(props) {
                                 <i className={`${style.heart} fa-solid fa-heart`}></i>
                             </button>
                         </div>
-                        <div className="mt-2">
-                            <input
-                                className="form-check-input me-2"
-                                type="checkbox"
-                                onChange={handleCompare}
-                                id={`compare-${props.id}`}
-                            />
 
-                            <label className="form-check-label" htmlFor={`compare-${props.id}`}>
-                                Confronta
-                            </label>
-                        </div>
 
 
                     </div>

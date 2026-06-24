@@ -5,11 +5,15 @@
 }
 
 .heart:hover {
-    color: rgb(255, 166, 0);
+    color: #0080ff;
 
 }
 
 .btnColor {
     background-color: #02509D;
     ;
+}
+
+.compare:hover {
+    cursor: pointer;
 }

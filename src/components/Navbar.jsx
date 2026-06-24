@@ -9,7 +9,7 @@ function Navbar() {
                 <div className="container">
                     <div>
                         <a className="navbar-brand" href={"/"}>
-                            <img src={logo} alt="logo" style={{ width: 140, height: 80 }} />
+                            <img src={logo} alt="logo" style={{ width: 140, height: 120 }} />
 
                         </a>
                     </div>
