@@ -22,3 +22,8 @@ body::before {
     height: 100%;
     z-index: -1;
 }
+
+.darkDiv {
+    border-radius: 20px;
+    background-color: rgba(23, 24, 24, 0.607);
+}
