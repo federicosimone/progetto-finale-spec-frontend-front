@@ -5,6 +5,7 @@ const { VITE_APP_API_URL } = import.meta.env
 import { Link } from "react-router-dom"
 import style from "../components/SmartphoneDetail.module.css"
 import { CompareContext } from "../context/CompareContext"
+import { FavoritesContext } from "../context/FavoritesContext"
 
 
 
@@ -12,7 +13,17 @@ function SmartphoneDetail() {
 
     const { id } = useParams()
     const { compareSmartphone, addToCompare } = useContext(CompareContext)
+    const { addToFavorites } = useContext(FavoritesContext)
 
+    function handleFavorites(e) {
+        e.preventDefault()
+        fetch(`${VITE_APP_API_URL}/smartphones/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                addToFavorites(data.smartphone)
+            })
+            .catch(err => console.error(err));
+    }
 
     const [details, setDetails] = useState({})
 
@@ -65,15 +76,22 @@ function SmartphoneDetail() {
                     </div>
                     <div className="col col-12 col-md-6">
                         <div className="text-end">
-                            <Link to={`/`} className="btn btn-primary mt-2 mb-2">Torna alla lista prodotti</Link>
+                            <Link to={`/`} className="btn btn-dark mt-2 mb-2">← Torna alla lista prodotti</Link>
                         </div>
+                        <h5>{details.brand}</h5>
                         <h2 className="fw-bold">{details.title} </h2>
-                        <p className="badge bg-secondary">{details.category}</p>
+                        <p className={`badge ${details.category === "Premium"
+                            ? "bg-warning"
+                            : details.category === "Gaming"
+                                ? "bg-info"
+                                : "bg-success"
+                            }`}>{details.category}</p>
 
                         <p>{details.description}</p>
                         <p className="fw-bold fs-2">€ {details.price}</p>
 
-                        <button className="btn btn-success" onClick={() => addToCompare(details)}>Confronta</button>
+                        <button className="btn btn-success me-2 " onClick={() => addToCompare(details)}>Confronta</button>
+                        <button type="button" className="btn btn-primary" onClick={handleFavorites}>Preferiti</button>
                         <div className="mt-3">
                             {<Link to={`/smartphones/${parseInt(id) - 1}`} ><i className="fs-3 fa-solid fa-circle-arrow-left"></i> </Link>}
                             <span> </span>

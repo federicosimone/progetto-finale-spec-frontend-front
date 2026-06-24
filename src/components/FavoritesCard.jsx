@@ -23,7 +23,8 @@ function FavoritesCard(props) {
                             }}
                         />
                     </div>
-                    <h5> {props.title}</h5>
+                    <h5>{props.brand}</h5>
+                    <h4>{props.title}</h4>
                     <p className="card-text">Categoria: {props.category}</p>
                     <p className="card-text fw-bold text-success ">€ {props.price}</p>
                     <button className="btn btn-danger" onClick={() => removeFromFavorites(props.id)}>Rimuovi</button>

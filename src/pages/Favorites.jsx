@@ -28,6 +28,7 @@ function Favorites() {
                                 price={smartphone.price}
                                 image={smartphone.image}
                                 id={smartphone.id}
+                                brand={smartphone.brand}
                             />
                         )
                     })}
