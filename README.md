@@ -1,6 +1,6 @@
-# Smartphone Compare
+# Progetto SmartphoneShop
 
-Applicazione web sviluppata con React che permette di confrontare smartphone appartenenti a diverse categorie.
+Applicazione web sviluppata con React che permette di consultare un catalogo di smartphone, effettuare ricerche, applicare filtri, visualizzare il dettaglio dei prodotti, salvarli tra i preferiti e confrontarne le caratteristiche.
 
 L'utente può:
 
@@ -21,6 +21,9 @@ L'utente può:
 - Bootstrap
 - JavaScript
 - Fetch API
+- Context API
+- CSS Modules
+- Vite
 
 ### Backend
 
@@ -57,6 +60,7 @@ Ricerca per titolo tramite query string:
 
 ```txt
 /smartphones?search=...
+```
 ## Scelte progettuali
 
 - È stata utilizzata una variabile d'ambiente (.env) per centralizzare l'URL base delle API ed evitare duplicazioni nel codice.
@@ -65,15 +69,95 @@ Ricerca per titolo tramite query string:
 
 - L'ordinamento viene gestito lato frontend tramite useMemo, evitando ricalcoli inutili ad ogni render.
 
-- Navbar e Footer sono stati inseriti in un DefaultLayout con Outlet per mantenerli persistenti durante la navigazione.
+- L'utilizzo del DefaultLayout permette di evitare la duplicazione della Navbar e del Footer nelle varie pagine dell'applicazione.
 
-- Per il comparatore è stato utilizzato un Context dedicato, evitando prop drilling e permettendo la condivisione dello stato tra pagine differenti.
+- Per il comparatore e per i preferiti sono stati utilizzati due Contexts dedicati, evitando prop drilling e permettendo la condivisione dello stato tra pagine differenti.
 
 
-Il Context consente di:
+### Comparatore 
 
 - mantenere gli smartphone selezionati durante la navigazione
 - aggiungere smartphone al confronto
 - rimuovere smartphone dal confronto
 - impedire l'inserimento di duplicati
 - limitare il confronto a un massimo di due smartphone
+
+### Preferiti
+
+L'utente può:
+
+- aggiungere smartphone ai preferiti
+- rimuoverli
+- consultare la lista dei preferiti in una pagina dedicata
+
+### Filtro
+
+Filtro tramite query string:
+
+```txt
+/smartphones?category=...
+```
+
+### Ricerca + filtro
+
+È possibile combinare entrambe le query:
+
+```txt
+/smartphones?search=iphone&category=Premium
+```
+
+### Ordinamento
+
+L'ordinamento viene eseguito lato frontend utilizzando **useMemo**.
+
+Sono disponibili:
+
+- Titolo A-Z
+- Titolo Z-A
+- Categoria A-Z
+- Categoria Z-A
+
+### Pagina di dettaglio
+
+Ogni smartphone dispone di una pagina dedicata che mostra:
+
+- immagine
+- titolo
+- categoria
+- descrizione
+- prezzo
+- sistema operativo
+- RAM
+- memoria interna
+- brand
+- dimensioni display
+
+## Installazione
+
+Installare le dipendenze
+
+bash
+npm install
+
+npm run dev
+
+
+---
+
+## 9. Database
+
+Io la aggiungerei perché la traccia lo richiede.
+
+```md
+## Database
+
+Il progetto include:
+
+- file `types.ts`
+- cartella `database`
+- file `smartphone.json`
+
+contenente almeno 10 record coerenti con la risorsa scelta.
+
+
+

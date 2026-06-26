@@ -85,9 +85,16 @@ function SmartphoneDetail() {
                             : details.category === "Gaming"
                                 ? "bg-info"
                                 : "bg-success"
-                            }`}>{details.category}</p>
+                            }`}>{details.category}
+                        </p>
+                        <div className="d-flex gap-5 mb-2">
+                            <span>RAM: <span className="fw-bold">{details.ram} GB</span></span>
+                            <span>Memoria: <span className="fw-bold">{details.storage} GB</span></span>
+                            <span>Dimensioni chermo: <span className="fw-bold">{details.displaySize}"</span></span>
+                        </div>
 
-                        <p>{details.description}</p>
+
+                        <p className="fst-italic">{details.description}</p>
                         <p className="fw-bold fs-2">€ {details.price}</p>
 
                         <button className="btn btn-success me-2 " onClick={() => addToCompare(details)}>Confronta</button>
