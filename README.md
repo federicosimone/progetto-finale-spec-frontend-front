@@ -54,13 +54,7 @@ Proprietà utilizzate:
 
 Visualizzazione di tutti gli smartphone presenti nel database.
 
-### Ricerca
 
-Ricerca per titolo tramite query string:
-
-```txt
-/smartphones?search=...
-```
 ## Scelte progettuali
 
 - È stata utilizzata una variabile d'ambiente (.env) per centralizzare l'URL base delle API ed evitare duplicazioni nel codice.
