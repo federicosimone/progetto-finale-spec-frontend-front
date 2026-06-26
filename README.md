@@ -139,7 +139,7 @@ npm run dev
 ---
 
 ## 9. Database
-S
+
 ```md
 ## Database
 

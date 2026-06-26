@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 const { VITE_APP_API_URL } = import.meta.env
 //import SmartphoneCardDetails from "../components/SmartphoneCardDetails"
 import { Link } from "react-router-dom"
-import style from "../components/SmartphoneDetail.module.css"
+//import style from "../components/SmartphoneDetail.module.css"
 import { CompareContext } from "../context/CompareContext"
 import { FavoritesContext } from "../context/FavoritesContext"
 
