@@ -130,7 +130,7 @@ Ogni smartphone dispone di una pagina dedicata che mostra:
 
 Installare le dipendenze
 
-bash
+
 npm install
 
 npm run dev
@@ -139,9 +139,7 @@ npm run dev
 ---
 
 ## 9. Database
-
-Io la aggiungerei perché la traccia lo richiede.
-
+S
 ```md
 ## Database
 
