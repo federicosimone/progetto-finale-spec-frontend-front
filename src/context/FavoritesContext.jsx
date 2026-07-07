@@ -12,26 +12,45 @@ const FavoritesContext = createContext(null)
 function FavoritesProvider({ children }) {
 
 
-    const [favoritesSmartphone, setFavoritesSmartphone] = useState([])
+    const [favoritesSmartphone, setFavoritesSmartphone] = useState(() => {
+        // 1. Chiedo al browser cosa c'è salvato nella chiave "favourites"
+        const datiSalvati = localStorage.getItem("favourites");
+
+        // 2. Se "favourites" è popolato, lo "spacchetto" (parse) PERCHE'?? Perchè chiave e valore devono esser stringhe e non oggetti o array  
+        // Se è null, ritorno un array vuoto [].
+        return datiSalvati ? JSON.parse(datiSalvati) : []; //con il ternario gli dico che se dati salvati esiste, allora deve parsarmi i dati oppure restituire array vuoto
+    });
 
     function addToFavorites(smartphone) {
-        setFavoritesSmartphone(prev => {
-            const alreadyExists = prev.some(currentPhone => currentPhone.id === smartphone.id);   //controlla che nell'array aggiornato 
-            //non ci sia un phone con l'id uguale a quello da aggiungere
-            if (alreadyExists) {  //se alredyExist è vera, siginifica che esiste già
-                alert("Hai già aggiunto questo smartphone")
-                return prev;       //quindi deve ritornare l'array precedente senza aggiungere nulla e ferma la funzione
-            }
 
-            return [...prev, smartphone]; //se le due condizioni precendenti non si verificano, allora ritorna una copia dell'array 
-            //aggiungendo lo smartphone. 
-        });
+        const alreadyExists = favoritesSmartphone.some(currentPhone => currentPhone.id === smartphone.id);   //controlla che nell'array aggiornato 
+        //non ci sia un phone con l'id uguale a quello da aggiungere
+        if (alreadyExists) {  //se alredyExist è vera, siginifica che esiste già
+            alert("Hai già aggiunto questo smartphone")
+            return;       //quindi deve ritornare l'array precedente senza aggiungere nulla e ferma la funzione
+        }
+
+        // 1. Creo un nuovo array e lo salvo in newFavourites, invece di fare [...prev, smarphone] per separare la logica. 
+        const newFavorites = [...favoritesSmartphone, smartphone];
+
+        // 2. Aggiorno lo stato (per la UI)
+        setFavoritesSmartphone(newFavorites);
+
+        // 3. Salvo nel localStorage (per la persistenza)
+        localStorage.setItem("favourites", JSON.stringify(newFavorites)); //se le due condizioni precendenti non si verificano, allora ritorna una copia dell'array 
+        //aggiungendo lo smartphone. 
+        ;
     }
 
     function removeFromFavorites(id) {
-        setFavoritesSmartphone(prev => prev.filter(phone => phone.id !== id)) //Uso filter per creare un nuovo array che contiene tutti gli smartphone tranne quello che voglio 
-        //rimuovere. Confronto gli id perché identificano univocamente ogni smartphone.
-        // Passo una callback a setCompareSmartphone così lavoro sempre sull'ultima versione aggiornata dello state.
+        // 1. Calcolo il nuovo array filtrato
+        const newFavorites = favoritesSmartphone.filter(phone => phone.id !== id);
+
+        // 2. Aggiorno lo stato (per la UI)
+        setFavoritesSmartphone(newFavorites);
+
+        // 3. Aggiorno il localStorage (per la persistenza)
+        localStorage.setItem("favourites", JSON.stringify(newFavorites));
     }
 
 
