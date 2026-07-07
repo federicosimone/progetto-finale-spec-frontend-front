@@ -29,7 +29,8 @@ function FavoritesProvider({ children }) {
     }
 
     function removeFromFavorites(id) {
-        setFavoritesSmartphone(prev => prev.filter(phone => phone.id !== id)) //Uso filter per creare un nuovo array che contiene tutti gli smartphone tranne quello che voglio rimuovere. Confronto gli id perché identificano univocamente ogni smartphone.
+        setFavoritesSmartphone(prev => prev.filter(phone => phone.id !== id)) //Uso filter per creare un nuovo array che contiene tutti gli smartphone tranne quello che voglio 
+        //rimuovere. Confronto gli id perché identificano univocamente ogni smartphone.
         // Passo una callback a setCompareSmartphone così lavoro sempre sull'ultima versione aggiornata dello state.
     }
 

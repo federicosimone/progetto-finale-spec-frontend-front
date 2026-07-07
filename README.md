@@ -63,6 +63,8 @@ Visualizzazione di tutti gli smartphone presenti nel database.
 
 - L'ordinamento viene gestito lato frontend tramite useMemo, evitando ricalcoli inutili ad ogni render.
 
+- La ricerca viene effettuata con un input controllato in modo da mostrare in tempo reale solo gli smartphone che corrispondono con la ricerca.  
+
 - L'utilizzo del DefaultLayout permette di evitare la duplicazione della Navbar e del Footer nelle varie pagine dell'applicazione.
 
 - Per il comparatore e per i preferiti sono stati utilizzati due Contexts dedicati, evitando prop drilling e permettendo la condivisione dello stato tra pagine differenti.

@@ -29,7 +29,7 @@ function CompareProvider({ children }) {
             }
 
             return [...prev, smartphone]; //se le due condizioni precendenti non si verificano, allora ritorna una copia dell'array 
-            //aggiungendo lo smartphone. 
+            //aggiungendo lo smartphone per concatenazione. 
         });
     }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useCallback } from "react"
 const { VITE_APP_API_URL } = import.meta.env
 import SmartphoneCard from "../components/SmartphoneCard"
 
@@ -10,16 +10,39 @@ import SmartphoneCard from "../components/SmartphoneCard"
 function Home() {
 
     const [smartphones, setSmartphones] = useState([])
-    const [search, setSearch] = useState("") //imposto lo stato di search
+    const [search, setSearch] = useState(() => sessionStorage.getItem("search") || "") //qui sto dicendo di leggere il valore salvato nella chiave "search" oppure di restituire stringa vuota
+    //imposto lo stato di search, che utilizzo per vedere quello scrivo nell'input 
     const [category, setCategory] = useState("");
     const [sortBy, setSortBy] = useState("")
     const [error, setError] = useState(""); //stato dell'errore che di default è vuoto 
+    const [debouncedSearch, setDebouncedSearch] = useState("") // creo lo stato debouncato per la fetch
 
     console.log(smartphones)
     console.log(search)
     console.log(category)
 
+    // questo useEffect ha la funzione di scrivere nella chiave "search" il valore recuperato dall'input, al variare della dipendenza search.
+    useEffect(() => {
+        sessionStorage.setItem("search", search)
+    }, [search])
 
+    function debounce(callback, delay) {
+        let timer
+        return (value) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                callback(value);   //value è ciò che scrive l'utente 
+            }, delay);
+        };
+    };
+
+
+    const updateDebouncedSearch = useCallback(  //uso useCallback per creare  updateDebouncedSearch solo una volta alla creazione del componente
+        debounce((value) => {
+            setDebouncedSearch(value);     //la callback che passo alla debounce è anonima è accetta come parametro la value, poi setta debouncedSearch in base a cosa scrive 
+            //l'utente, ma lo fa un secondo dopo che l'utente ha smesso di scrivere 
+        }, 1000)
+        , []);
 
 
     useEffect(() => {
@@ -28,12 +51,12 @@ function Home() {
 
             let url = `${VITE_APP_API_URL}/smartphones`;
 
-            if (search && !category) {
-                url += `?search=${search}`;
-            } else if (!search && category) {
+            if (debouncedSearch && !category) {  //qui utilizzo debouncedSearch, in modo da avere già la query debouncata per fare una chiamata api precisa
+                url += `?search=${debouncedSearch}`;
+            } else if (!debouncedSearch && category) {
                 url += `?category=${category}`;
-            } else if (search && category) {
-                url += `?search=${search}&category=${category}`;
+            } else if (debouncedSearch && category) {
+                url += `?search=${debouncedSearch}&category=${category}`;
             }
 
             try {
@@ -54,13 +77,17 @@ function Home() {
             }
         }
 
-        getSmartphones();
+        getSmartphones();   //invoco getSmartphones dentro lo useEffect non può essere dichiarato async
+        //PERCHE'? perchè useEffect deve sempre restituire undefined 
+        //ma una funzione asincrona restituisce SEMPRE una promise.
+        //Quindi ho definito una funzione asincrona e l'ho invocata per eseguire la fetch. 
+    }, [debouncedSearch, category]);
 
-    }, [search, category]);
 
 
 
-    const sortedSmartphones = useMemo(() => {          //uso usememo per memorizzare il risultato dell'ordinamento e ricalcolarlo solo quando cambiano le dipendenze
+
+    const sortedSmartphones = useMemo(() => { //uso usememo per memorizzare il risultato dell'ordinamento e ricalcolarlo solo quando cambiano le dipendenze
         //Non mi serve filtrare perchè l'array smartphones mi arriva già filtrato dal backend a causa dello useEffect precendente 
         const copiaSmartphones = [...smartphones]
 
@@ -73,9 +100,6 @@ function Home() {
         } else if (sortBy === "category-desc") {
             copiaSmartphones.sort((a, b) => b.category.localeCompare(a.category)) //in base alla categoria 
         }
-
-
-
 
 
         return copiaSmartphones
@@ -99,8 +123,11 @@ function Home() {
                             className="form-control mb-3 "
                             type="text" placeholder="Cerca..."
                             value={search}
-                            onChange={e => setSearch(e.target.value)
-                            } />
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                updateDebouncedSearch(e.target.value);  //usp updateDebouncedSearch perchè contiene il set debouncato
+                                //se usassi direttamente setDebouncedSearch, mi farebbe la chiamata Api ad ogni lettera e non servirebbe a nulla. 
+                            }} />
                     </div>
 
 

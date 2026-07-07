@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import style from "../components/SmartphoneCard.module.css"
-import { useContext, useState } from "react"
+import { useContext, } from "react"
 import { CompareContext } from "../context/CompareContext"
 import { FavoritesContext } from "../context/FavoritesContext"
 const { VITE_APP_API_URL } = import.meta.env
@@ -20,7 +20,7 @@ function SmartphoneCard(props) {
     }
 
     function handleFavorites(e) {
-        e.preventDefault()
+        e.preventDefault() //per fermare l'evento di default che altrimenti avverrebbe al caricamento del componente
         fetch(`${VITE_APP_API_URL}/smartphones/${props.id}`)
             .then(res => res.json())
             .then(data => {
