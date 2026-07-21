@@ -25,7 +25,7 @@ function CompareCard(props) {
                     </div>
                     <h5> {props.title}</h5>
                     <p className="card-text">Categoria: {props.category}</p>
-                    <p className="card-text fw-bold text-success ">€ {props.price}</p>
+                    <p className="card-text fw-bold text-success ">€ {props.price.toFixed(2)}</p>
                     <button className="btn btn-danger" onClick={() => removeFromCompare(props.id)}>Rimuovi</button>
 
 
