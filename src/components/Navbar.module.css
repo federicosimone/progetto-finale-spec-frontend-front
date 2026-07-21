@@ -6,3 +6,7 @@
 .icons:hover {
     color: #0080ff !important;
 }
+
+.position {
+    position: relative;
+}

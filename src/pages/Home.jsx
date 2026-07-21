@@ -37,7 +37,7 @@ function Home() {
     };
 
 
-    const updateDebouncedSearch = useCallback(  //uso useCallback per creare  updateDebouncedSearch solo una volta alla creazione del componente
+    const updateDebouncedSearch = useCallback(   //uso useCallback per creare  updateDebouncedSearch solo una volta alla creazione del componente
         debounce((value) => {
             setDebouncedSearch(value);     //la callback che passo alla debounce è anonima è accetta come parametro la value, poi setta debouncedSearch in base a cosa scrive 
             //l'utente, ma lo fa un secondo dopo che l'utente ha smesso di scrivere 
@@ -77,7 +77,7 @@ function Home() {
             }
         }
 
-        getSmartphones();   //invoco getSmartphones dentro lo useEffect non può essere dichiarato async
+        getSmartphones();   //invoco getSmartphones dentro lo useEffect perchè lo useEffect non può essere dichiarato async
         //PERCHE'? perchè useEffect deve sempre restituire undefined 
         //ma una funzione asincrona restituisce SEMPRE una promise.
         //Quindi ho definito una funzione asincrona e l'ho invocata per eseguire la fetch. 
