@@ -36,13 +36,16 @@ function Home() {
         };
     };
 
+    function notDebouncedSearch(value) {  //creo una funzione che svolge il solo compito di settare lo stato 
+        return setDebouncedSearch(value)
+    }
+
 
     const updateDebouncedSearch = useCallback(   //uso useCallback per creare  updateDebouncedSearch solo una volta alla creazione del componente
-        debounce((value) => {
-            setDebouncedSearch(value);     //la callback che passo alla debounce è anonima è accetta come parametro la value, poi setta debouncedSearch in base a cosa scrive 
-            //l'utente, ma lo fa un secondo dopo che l'utente ha smesso di scrivere 
-        }, 1000)
-        , []);
+        debounce(notDebouncedSearch, 1000), [])   //la callback che passo alla debounce è notDebouncedSearch che ha inplicito il parametro value che setta debouncedSearch in base a cosa scrive 
+    //l'utente, ma lo fa un secondo dopo che l'utente ha smesso di scrivere ,
+
+
 
 
     useEffect(() => {
