@@ -36,13 +36,14 @@ function Home() {
         };
     };
 
-    function notDebouncedSearch(value) {  //creo una funzione che svolge il solo compito di settare lo stato 
+    function debounceCallback(value) {  //creo una funzione che svolge il solo compito di settare lo stato 
         return setDebouncedSearch(value)
     }
 
 
     const updateDebouncedSearch = useCallback(   //uso useCallback per creare  updateDebouncedSearch solo una volta alla creazione del componente
-        debounce(notDebouncedSearch, 1000), [])   //la callback che passo alla debounce è notDebouncedSearch che ha inplicito il parametro value che setta debouncedSearch in base a cosa scrive 
+        debounce(debounceCallback, 1000),
+        [])   //la callback che passo alla debounce è notDebouncedSearch che ha inplicito il parametro value che setta debouncedSearch in base a cosa scrive 
     //l'utente, ma lo fa un secondo dopo che l'utente ha smesso di scrivere ,
 
 
@@ -127,7 +128,7 @@ function Home() {
                             type="text" placeholder="Cerca..."
                             value={search}
                             onChange={(e) => {
-                                setSearch(e.target.value);
+                                setSearch(e.target.value); //ad ogni digitazione il componente viene ri-renderizzato
                                 updateDebouncedSearch(e.target.value);  //usp updateDebouncedSearch perchè contiene il set debouncato
                                 //se usassi direttamente setDebouncedSearch, mi farebbe la chiamata Api ad ogni lettera e non servirebbe a nulla. 
                             }} />
