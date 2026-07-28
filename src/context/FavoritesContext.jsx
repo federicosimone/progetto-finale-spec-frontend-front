@@ -56,7 +56,7 @@ function FavoritesProvider({ children }) {
 
     return (
         <FavoritesContext.Provider value={{ favoritesSmartphone, setFavoritesSmartphone, addToFavorites, removeFromFavorites }}>   {/*tutti i figli possono accedere ai dati (favoritesSmartphone) e a setFavoritesSmartphone per modificare l'array  tramite FavoritesContext.*/}
-            {children}
+            {children}  {/*children è inteso come TUTTI I COMPONENTI FIGLI RACCHIUSI DENTRO IL PROVIDER che possono importare la sua value*/}
         </FavoritesContext.Provider>
     );
 

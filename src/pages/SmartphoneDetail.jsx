@@ -29,28 +29,30 @@ function SmartphoneDetail() {
 
     console.log(compareSmartphone)
 
-    async function getData() {
-        let url = `${VITE_APP_API_URL}/smartphones/${id}`;
 
-        try {
-            const res = await fetch(url);
 
-            //Controlla se l'ID esiste sul server
-            if (!res.ok) {
-                throw new Error(`Smartphone non trovato (Status ${res.status})`);
+
+    useEffect(() => { //con useEffect voglio che la funzione getData (ovvero quella che prende i dati dal fetch), venga svolta alla creazione del componente.
+        async function getData() {
+            let url = `${VITE_APP_API_URL}/smartphones/${id}`;
+
+            try {
+                const res = await fetch(url);
+
+                //Controlla se l'ID esiste sul server
+                if (!res.ok) {
+                    throw new Error(`Smartphone non trovato (Status ${res.status})`);
+                }
+
+                const data = await res.json();
+                setDetails(data.smartphone);
+
+            } catch (err) {
+                //Catturo QUALSIASI errore del processo della chiamata
+                console.error("Errore nel recupero dei dati:", err);
             }
-
-            const data = await res.json();
-            setDetails(data.smartphone);
-
-        } catch (err) {
-            //Catturo QUALSIASI errore del processo della chiamata
-            console.error("Errore nel recupero dei dati:", err);
         }
-    }
 
-
-    useEffect(() => {   //con useEffect voglio che la funzione getData (ovvero quella che prende i dati dal fetch), venga svolta alla creazione del componente. 
         getData()
     }, [id])
 

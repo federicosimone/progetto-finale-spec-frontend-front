@@ -23,7 +23,7 @@ function Home() {
 
     // questo useEffect ha la funzione di scrivere nella chiave "search" il valore recuperato dall'input, al variare della dipendenza search.
     useEffect(() => {
-        sessionStorage.setItem("search", search)
+        sessionStorage.setItem("search", search)  //NON SERVE IL JSON.STRINGIFY PERCHE' SEARCH E' GIA' UNA STRINGA
     }, [search])
 
     function debounce(callback, delay) {
@@ -36,7 +36,7 @@ function Home() {
         };
     };
 
-    function debounceCallback(value) {  //creo una funzione che svolge il solo compito di settare lo stato 
+    function debounceCallback(value) {  //creo una funzione che svolge il solo compito di settare lo stato
         return setDebouncedSearch(value)
     }
 
@@ -93,7 +93,8 @@ function Home() {
 
     const sortedSmartphones = useMemo(() => { //uso usememo per memorizzare il risultato dell'ordinamento e ricalcolarlo solo quando cambiano le dipendenze
         //Non mi serve filtrare perchè l'array smartphones mi arriva già filtrato dal backend a causa dello useEffect precendente 
-        const copiaSmartphones = [...smartphones]
+
+        const copiaSmartphones = [...smartphones] //faccio una copia dell'array perchè sort modifica l'array originale. 
 
         if (sortBy === "title-asc") { // se il criterio corrisponde a "title-asc" allora tramite il metodo del localeCompare ordino alfabeticamente A-Z
             copiaSmartphones.sort((a, b) => a.title.localeCompare(b.title)) //in base al title
@@ -109,7 +110,7 @@ function Home() {
         return copiaSmartphones
 
     }, [smartphones, sortBy]); //sortBy è lo stato che cambia in base alla value del select, quindi SOLO quando cambia, vado a ricalcolare al funzione
-    //oppure, quando cambia "smartphones", ovvero l'array originale perchè magari viene già filtrato. 
+    //oppure, quando cambia "smartphones", ovvero l'array originale perchè magari viene già filtrato per altri criteri.
     return (
         <>
             <div className="darkDiv text-white text-center p-2">
@@ -138,7 +139,7 @@ function Home() {
                     {/*Creo la select per filtrare in base alla categoria*/}
                     <div className="col-4">
                         <label className="text-white mb-1">Scegli la categoria:</label>
-                        <select className="form-select " aria-label="Select category" value={category} onChange={e => setCategory(e.target.value)}>
+                        <select className="form-select " aria-label="Select category" value={category} onChange={e => setCategory(e.target.value)}>  {/* raccolgo l'evento del select */}
                             <option value="">Scegli una categoria</option>
                             <option value="Entry-level">Entry-level</option>
                             <option value="Gaming">Gaming</option>
@@ -160,7 +161,7 @@ function Home() {
 
 
 
-                    <p className="mt-1 text-white">{search ? `Stai cercando: ${search}` : "Non hai ancora cercato nulla..."}</p>
+                    <p className="mt-1 text-white">{search ? `Stai cercando: ${search}` : "Non hai ancora cercato nulla..."}</p>  {/* Ternario */}
 
                 </div>
             </div>
